@@ -27,6 +27,7 @@ find_package(catkin REQUIRED COMPONENTS
   jsk_pcl_ros_utils
   # jsk_recognition_msgs
   jsk_recognition_utils
+  jsk_rviz_plugins # kinfu.h uses jsk_rviz_plugins/OverlayText.h
   jsk_topic_tools
   # kdl_conversions
   # kdl_parser
@@ -86,6 +87,7 @@ generate_dynamic_reconfigure_options(
   cfg/ICPRegistration.cfg
   cfg/OrganizedPassThrough.cfg
   cfg/EuclideanClustering.cfg
+  cfg/3DObjectDetection.cfg
   cfg/HSIColorFilter.cfg
   cfg/RGBColorFilter.cfg
   cfg/ImageRotate.cfg
@@ -185,6 +187,8 @@ jsk_pcl_nodelet(src/color_filter_nodelet.cpp
   "jsk_pcl/HSIColorFilter" "hsi_color_filter")
 jsk_pcl_nodelet(src/euclidean_cluster_extraction_nodelet.cpp
   "jsk_pcl/EuclideanClustering" "euclidean_clustering")
+jsk_pcl_nodelet(src/3D_object_detection.cpp
+  "jsk_pcl/3DObjectDetection" "3D_object_detection")
 jsk_pcl_nodelet(src/cluster_point_indices_decomposer_nodelet.cpp
   "jsk_pcl/ClusterPointIndicesDecomposer" "cluster_point_indices_decomposer")
 jsk_pcl_nodelet(src/cluster_point_indices_decomposer_nodelet.cpp
@@ -447,7 +451,7 @@ catkin_package(
 )
 
 # download and install sample data
-add_custom_target(${PROJECT_NAME}_install_sample_data ALL COMMAND ${PROJECT_SOURCE_DIR}/scripts/install_sample_data.py)
+add_custom_target(install_sample_data ALL COMMAND ${PROJECT_SOURCE_DIR}/scripts/install_sample_data.py)
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
